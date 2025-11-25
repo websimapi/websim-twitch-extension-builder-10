@@ -18,6 +18,20 @@ export function setupExport({ btnExport, saveCurrentViewState }) {
 
         // 2. CSS (Shared)
         const cssContent = `
+/* CSS Reset to eliminate Twitch Panel margins/padding */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 320px;
+    overflow: hidden;
+}
+
+#app {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+}
+
 body {
     background-color: #0e0e10; /* Dark mode base */
     color: white;
