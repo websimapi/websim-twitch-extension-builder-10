@@ -156,7 +156,7 @@ function escapeAttribute(str) {
     return String(str || '').replace(/"/g, '&quot;');
 }
 
-const cssContent = `body {
+const cssContent = \`body {
     background-color: #0e0e10;
     color: white;
     font-family: system-ui, sans-serif;
