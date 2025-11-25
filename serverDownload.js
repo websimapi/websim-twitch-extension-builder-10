@@ -156,7 +156,21 @@ function escapeAttribute(str) {
     return String(str || '').replace(/"/g, '&quot;');
 }
 
-const cssContent = \`body {
+const cssContent = \`/* Universal CSS Reset: Targets every element to zero out all spacing */
+* {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Ensure the main root elements are also explicitly zeroed out */
+body, html {
+    overflow: hidden; /* Keep this to prevent scrollbars */
+    width: 100%; /* Or 320px if you prefer fixed sizing */
+    height: 100%;
+}
+
+body {
     background-color: #0e0e10;
     color: white;
     font-family: system-ui, sans-serif;
