@@ -763,6 +763,8 @@ function addDragAndResizeHandlers(wrapper) {
     });
 }
 
+// REMOVE the local renderElementContent definition below
+/*
 export function renderElementContent(wrapper, type, data) {
     wrapper.innerHTML = ''; // Clear previous
 
@@ -815,7 +817,7 @@ export function renderElementContent(wrapper, type, data) {
     // Ensure resize handles exist after rerender (only in builder)
     addResizeHandles(wrapper);
 }
-
+*/
 function selectElement(wrapper) {
     if (currentSelection) {
         currentSelection.classList.remove('selected');
