@@ -156,71 +156,68 @@ function escapeAttribute(str) {
     return String(str || '').replace(/"/g, '&quot;');
 }
 
-const cssContent = `/* Universal CSS Reset: Targets every element to zero out all spacing */
-* {
-    margin: 0 !important;
-    padding: 0 !important;
-    box-sizing: border-box !important;
-}
+const cssContent = ''
+    + '/* Universal CSS Reset: Targets every element to zero out all spacing */\n'
+    + '* {\n'
+    + '    margin: 0 !important;\n'
+    + '    padding: 0 !important;\n'
+    + '    box-sizing: border-box !important;\n'
+    + '}\n\n'
+    + '/* Ensure the main root elements are also explicitly zeroed out */\n'
+    + 'body, html {\n'
+    + '    overflow: hidden; /* Keep this to prevent scrollbars */\n'
+    + '    width: 320px; /* Fixed Twitch panel width */\n'
+    + '    height: 100%;\n'
+    + '}\n\n'
+    + 'body {\n'
+    + '    background-color: #0e0e10;\n'
+    + '    color: white;\n'
+    + '    font-family: system-ui, sans-serif;\n'
+    + '    margin: 0;\n'
+    + '    padding: 10px;\n'
+    + '    overflow-x: hidden;\n'
+    + '}\n'
+    + '#app {\n'
+    + '    position: relative;\n'
+    + '    width: 320px; /* Match fixed panel width */\n'
+    + '    max-width: 320px;\n'
+    + '    min-height: 100px;\n'
+    + '    margin: 0 auto;\n'
+    + '}\n'
+    + '.teb-wrapper {\n'
+    + '    position: absolute;\n'
+    + '    box-sizing: border-box;\n'
+    + '}\n'
+    + '.teb-btn {\n'
+    + '    border: none;\n'
+    + '    padding: 8px 16px;\n'
+    + '    border-radius: 4px;\n'
+    + '    width: 100%;\n'
+    + '    cursor: pointer;\n'
+    + '    font-weight: 600;\n'
+    + '    transition: opacity 0.2s;\n'
+    + '}\n'
+    + '.teb-btn:hover { opacity: 0.9; }\n'
+    + '.teb-text { line-height: 1.4; }\n'
+    + '.teb-image { max-width: 100%; height: auto; display: block; border-radius: 4px; }\n'
+    + '.teb-divider { width: 100%; height: 1px; }\n'
+    + '.teb-container { border-radius: 4px; }';
 
-/* Ensure the main root elements are also explicitly zeroed out */
-body, html {
-    overflow: hidden; /* Keep this to prevent scrollbars */
-    width: 320px; /* Fixed Twitch panel width */
-    height: 100%;
-}
-
-body {
-    background-color: #0e0e10;
-    color: white;
-    font-family: system-ui, sans-serif;
-    margin: 0;
-    padding: 10px;
-    overflow-x: hidden;
-}
-#app {
-    position: relative;
-    width: 320px; /* Match fixed panel width */
-    max-width: 320px;
-    min-height: 100px;
-    margin: 0 auto;
-}
-.teb-wrapper {
-    position: absolute;
-    box-sizing: border-box;
-}
-.teb-btn {
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    width: 100%;
-    cursor: pointer;
-    font-weight: 600;
-    transition: opacity 0.2s;
-}
-.teb-btn:hover { opacity: 0.9; }
-.teb-text { line-height: 1.4; }
-.teb-image { max-width: 100%; height: auto; display: block; border-radius: 4px; }
-.teb-divider { width: 100%; height: 1px; }
-.teb-container { border-radius: 4px; }\`;
-
-const jsContent = \`window.twitch = window.Twitch.ext;
-
-twitch.onContext((context) => {
-    console.log('Context:', context);
-});
-
-twitch.onAuthorized((auth) => {
-    console.log('Authorized:', auth);
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.teb-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            console.log('Button clicked:', btn.textContent);
-        });
-    });
-});\`;
+const jsContent = ''
+    + 'window.twitch = window.Twitch.ext;\n\n'
+    + 'twitch.onContext((context) => {\n'
+    + '    console.log(\'Context:\', context);\n'
+    + '});\n\n'
+    + 'twitch.onAuthorized((auth) => {\n'
+    + '    console.log(\'Authorized:\', auth);\n'
+    + '});\n\n'
+    + 'document.addEventListener(\'DOMContentLoaded\', () => {\n'
+    + '    document.querySelectorAll(\'.teb-btn\').forEach(btn => {\n'
+    + '        btn.addEventListener(\'click\', () => {\n'
+    + '            console.log(\'Button clicked:\', btn.textContent);\n'
+    + '        });\n'
+    + '    });\n'
+    + '});\n';
 
 const manifest = {
     "name": "My DragDrop Extension",
