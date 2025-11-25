@@ -2,8 +2,7 @@ import JSZip from 'jszip';
 import saveAs from 'file-saver';
 import forge from 'node-forge';
 
-export function setupServerDownload(options) {
-    const { btnServer } = options;
+export function setupServerDownload({ btnServer }) {
     btnServer.addEventListener('click', () => {
         // UI Feedback
         const originalText = btnServer.innerHTML;
@@ -157,21 +156,7 @@ function escapeAttribute(str) {
     return String(str || '').replace(/"/g, '&quot;');
 }
 
-const cssContent = `/* CSS Reset to eliminate Twitch Panel margins/padding */
-html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 320px;
-    overflow: hidden;
-}
-
-#app {
-    margin: 0 !important;
-    padding: 0 !important;
-    box-sizing: border-box;
-}
-
-body {
+const cssContent = `body {
     background-color: #0e0e10;
     color: white;
     font-family: system-ui, sans-serif;

@@ -4,9 +4,7 @@
 let socket = null;
 let reconnectTimeout = null;
 
-export function setupLiveSync(options) {
-    const { getViewsSnapshot, onStatusChange, onInitialProjectLoaded } = options;
-
+export function setupLiveSync({ getViewsSnapshot, onStatusChange, onInitialProjectLoaded }) {
     function setStatus(state) {
         if (typeof onStatusChange === 'function') {
             onStatusChange(state);
