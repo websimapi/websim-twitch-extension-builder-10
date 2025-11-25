@@ -1,6 +1,6 @@
 import JSZip from 'jszip';
 import saveAs from 'file-saver';
-import { views } from './script.js';
+import { views } from './state.js';
 
 export function setupExport({ btnExport, saveCurrentViewState }) {
     btnExport.addEventListener('click', async () => {
