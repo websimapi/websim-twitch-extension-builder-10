@@ -156,7 +156,7 @@ function escapeAttribute(str) {
     return String(str || '').replace(/"/g, '&quot;');
 }
 
-const cssContent = \`/* Universal CSS Reset: Targets every element to zero out all spacing */
+const cssContent = `/* Universal CSS Reset: Targets every element to zero out all spacing */
 * {
     margin: 0 !important;
     padding: 0 !important;
@@ -166,7 +166,7 @@ const cssContent = \`/* Universal CSS Reset: Targets every element to zero out a
 /* Ensure the main root elements are also explicitly zeroed out */
 body, html {
     overflow: hidden; /* Keep this to prevent scrollbars */
-    width: 100%; /* Or 320px if you prefer fixed sizing */
+    width: 320px; /* Fixed Twitch panel width */
     height: 100%;
 }
 
@@ -180,8 +180,10 @@ body {
 }
 #app {
     position: relative;
-    width: 100%;
+    width: 320px; /* Match fixed panel width */
+    max-width: 320px;
     min-height: 100px;
+    margin: 0 auto;
 }
 .teb-wrapper {
     position: absolute;

@@ -250,6 +250,10 @@ body {
     position: relative;
     transition: border-color 0.2s;
     overflow-y: auto;
+    /* NEW: hard clamp preview to 320px wide and hide horizontal scroll */
+    max-width: var(--panel-width);
+    overflow-x: hidden;
+    margin: 0 auto;
     background-image:
         linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
