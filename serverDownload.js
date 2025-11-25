@@ -2,7 +2,8 @@ import JSZip from 'jszip';
 import saveAs from 'file-saver';
 import forge from 'node-forge';
 
-export function setupServerDownload({ btnServer }) {
+export function setupServerDownload(options) {
+    const { btnServer } = options;
     btnServer.addEventListener('click', () => {
         // UI Feedback
         const originalText = btnServer.innerHTML;
