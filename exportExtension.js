@@ -53,7 +53,7 @@ body {
 }
 .teb-btn {
     border: none;
-    padding: 8px 16px;
+    padding: 8px 16px !important;
     border-radius: 4px;
     width: 100%;
     cursor: pointer;
@@ -64,7 +64,7 @@ body {
 .teb-text { line-height: 1.4; }
 .teb-image { max-width: 100%; height: auto; display: block; border-radius: 4px; }
 .teb-divider { width: 100%; height: 1px; }
-.teb-container { border-radius: 4px; }
+.teb-container { border-radius: 4px; width: 100%; height: 100%; }
         `;
 
         // 3. JS (Shared)
@@ -147,7 +147,7 @@ function generateHTMLForView(view) {
                 inner = `<button class="teb-btn" style="background-color:${escapeAttr(data.bgColor)};color:${escapeAttr(data.color)};">${escapeHtml(data.label || '')}</button>`;
                 break;
             case 'container':
-                inner = `<div class="teb-container" style="background-color:${escapeAttr(data.bgColor)};padding:${escapeAttr(data.padding)};border-radius:${escapeAttr(data.radius)};color:#aaa;font-size:0.8rem;text-align:center;border:1px dashed #444;">Container Area</div>`;
+                inner = `<div class="teb-container" style="background-color:${escapeAttr(data.bgColor)};padding:${escapeAttr(data.padding)} !important;border-radius:${escapeAttr(data.radius)};color:#aaa;font-size:0.8rem;text-align:center;border:1px dashed #444;">Container Area</div>`;
                 break;
             case 'image':
                 inner = `<img class="teb-image" src="${escapeAttr(data.src || '')}" alt="${escapeAttr(data.alt || '')}" />`;

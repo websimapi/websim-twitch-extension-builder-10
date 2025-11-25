@@ -100,7 +100,7 @@ function generateHTMLForView(view) {
             case 'button':
                 return \`<div class="teb-wrapper" style="\${layout}"><button class="teb-btn" style="background-color:\${escapeAttribute(data.bgColor)};color:\${escapeAttribute(data.color)};">\${escapeHtml(data.label || '')}</button></div>\`;
             case 'container':
-                return \`<div class="teb-wrapper" style="\${layout}"><div class="teb-container" style="background-color:\${escapeAttribute(data.bgColor)};padding:\${escapeAttribute(data.padding)};border-radius:\${escapeAttribute(data.radius)};color:#aaa;font-size:0.8rem;text-align:center;border:1px dashed #444;">Container Area</div></div>\`;
+                return \`<div class="teb-wrapper" style="\${layout}"><div class="teb-container" style="background-color:\${escapeAttribute(data.bgColor)};padding:\${escapeAttribute(data.padding)} !important;border-radius:\${escapeAttribute(data.radius)};color:#aaa;font-size:0.8rem;text-align:center;border:1px dashed #444;">Container Area</div></div>\`;
             case 'image':
                 return \`<div class="teb-wrapper" style="\${layout}"><img class="teb-image" src="\${escapeAttribute(data.src || '')}" alt="\${escapeAttribute(data.alt || '')}" /></div>\`;
             case 'divider':
@@ -190,7 +190,7 @@ const cssContent = ''
     + '}\n'
     + '.teb-btn {\n'
     + '    border: none;\n'
-    + '    padding: 8px 16px;\n'
+    + '    padding: 8px 16px !important;\n'
     + '    border-radius: 4px;\n'
     + '    width: 100%;\n'
     + '    cursor: pointer;\n'
@@ -201,7 +201,7 @@ const cssContent = ''
     + '.teb-text { line-height: 1.4; }\n'
     + '.teb-image { max-width: 100%; height: auto; display: block; border-radius: 4px; }\n'
     + '.teb-divider { width: 100%; height: 1px; }\n'
-    + '.teb-container { border-radius: 4px; }';
+    + '.teb-container { border-radius: 4px; width: 100%; height: 100%; }';
 
 const jsContent = ''
     + 'window.twitch = window.Twitch.ext;\n\n'
