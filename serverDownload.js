@@ -2,6 +2,78 @@ import JSZip from 'jszip';
 import saveAs from 'file-saver';
 import forge from 'node-forge';
 
+const cssTemplate = `/* Universal CSS Reset: Targets every element to zero out all spacing */
+* {
+    margin: 0 !important;
+    padding: 0;
+    box-sizing: border-box !important;
+}
+
+/* Ensure the main root elements are also explicitly zeroed out */
+body, html {
+    overflow: hidden; /* Keep this to prevent scrollbars */
+    width: 320px; /* Fixed Twitch panel width */
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body {
+    background-color: #0e0e10;
+    color: white;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+#app {
+    position: relative;
+    width: 320px; /* Match fixed panel width */
+    max-width: 320px;
+    min-height: 100px;
+    margin: 0 auto;
+}
+.teb-wrapper {
+    position: absolute;
+    box-sizing: border-box;
+}
+.teb-btn {
+    border: none;
+    padding: 8px 16px !important;
+    border-radius: 4px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: opacity 0.2s;
+}
+.teb-btn:hover { opacity: 0.9; }
+.teb-text { line-height: 1.4; }
+.teb-image { max-width: 100%; height: auto; display: block; border-radius: 4px; }
+.teb-divider { width: 100%; height: 1px; }
+.teb-container { border-radius: 4px; height: 100%; min-height: 20px; box-sizing: border-box; }`;
+
+const jsTemplate = `window.twitch = window.Twitch.ext;
+
+twitch.onContext((context) => {
+    console.log('Context:', context);
+});
+
+twitch.onAuthorized((auth) => {
+    console.log('Authorized:', auth);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.teb-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            console.log('Button clicked:', btn.textContent);
+        });
+    });
+});`;
+
 export function setupServerDownload({ btnServer }) {
     btnServer.addEventListener('click', () => {
         // UI Feedback
@@ -100,7 +172,7 @@ function generateHTMLForView(view) {
             case 'button':
                 return \`<div class="teb-wrapper" style="\${layout}"><button class="teb-btn" style="background-color:\${escapeAttribute(data.bgColor)};color:\${escapeAttribute(data.color)};">\${escapeHtml(data.label || '')}</button></div>\`;
             case 'container':
-                return \`<div class="teb-wrapper" style="\${layout}"><div class="teb-container" style="background-color:\${escapeAttribute(data.bgColor)};padding:\${escapeAttribute(data.padding)} !important;border-radius:\${escapeAttribute(data.radius)};color:#aaa;font-size:0.8rem;text-align:center;border:1px dashed #444;">Container Area</div></div>\`;
+                return \`<div class="teb-wrapper" style="\${layout}"><div class="teb-container" style="background-color:\${escapeAttribute(data.bgColor)};padding:\${escapeAttribute(data.padding)};border-radius:\${escapeAttribute(data.radius)};color:#adadb8;font-size:13px;text-align:center;border:1px dashed #444;">Container Area</div></div>\`;
             case 'image':
                 return \`<div class="teb-wrapper" style="\${layout}"><img class="teb-image" src="\${escapeAttribute(data.src || '')}" alt="\${escapeAttribute(data.alt || '')}" /></div>\`;
             case 'divider':
@@ -156,68 +228,8 @@ function escapeAttribute(str) {
     return String(str || '').replace(/"/g, '&quot;');
 }
 
-const cssContent = ''
-    + '/* Universal CSS Reset: Targets every element to zero out all spacing */\n'
-    + '* {\n'
-    + '    margin: 0 !important;\n'
-    + '    padding: 0 !important;\n'
-    + '    box-sizing: border-box !important;\n'
-    + '}\n\n'
-    + '/* Ensure the main root elements are also explicitly zeroed out */\n'
-    + 'body, html {\n'
-    + '    overflow: hidden; /* Keep this to prevent scrollbars */\n'
-    + '    width: 320px; /* Fixed Twitch panel width */\n'
-    + '    height: 100%;\n'
-    + '}\n\n'
-    + 'body {\n'
-    + '    background-color: #0e0e10;\n'
-    + '    color: white;\n'
-    + '    font-family: system-ui, sans-serif;\n'
-    + '    margin: 0;\n'
-    + '    padding: 10px;\n'
-    + '    overflow-x: hidden;\n'
-    + '}\n'
-    + '#app {\n'
-    + '    position: relative;\n'
-    + '    width: 320px; /* Match fixed panel width */\n'
-    + '    max-width: 320px;\n'
-    + '    min-height: 100px;\n'
-    + '    margin: 0 auto;\n'
-    + '}\n'
-    + '.teb-wrapper {\n'
-    + '    position: absolute;\n'
-    + '    box-sizing: border-box;\n'
-    + '}\n'
-    + '.teb-btn {\n'
-    + '    border: none;\n'
-    + '    padding: 8px 16px !important;\n'
-    + '    border-radius: 4px;\n'
-    + '    width: 100%;\n'
-    + '    cursor: pointer;\n'
-    + '    font-weight: 600;\n'
-    + '    transition: opacity 0.2s;\n'
-    + '}\n'
-    + '.teb-btn:hover { opacity: 0.9; }\n'
-    + '.teb-text { line-height: 1.4; }\n'
-    + '.teb-image { max-width: 100%; height: auto; display: block; border-radius: 4px; }\n'
-    + '.teb-divider { width: 100%; height: 1px; }\n'
-    + '.teb-container { border-radius: 4px; width: 100%; height: 100%; }';
-
-const jsContent = ''
-    + 'window.twitch = window.Twitch.ext;\n\n'
-    + 'twitch.onContext((context) => {\n'
-    + '    console.log(\'Context:\', context);\n'
-    + '});\n\n'
-    + 'twitch.onAuthorized((auth) => {\n'
-    + '    console.log(\'Authorized:\', auth);\n'
-    + '});\n\n'
-    + 'document.addEventListener(\'DOMContentLoaded\', () => {\n'
-    + '    document.querySelectorAll(\'.teb-btn\').forEach(btn => {\n'
-    + '        btn.addEventListener(\'click\', () => {\n'
-    + '            console.log(\'Button clicked:\', btn.textContent);\n'
-    + '        });\n'
-    + '    });\n'
-    + '});\n';
+const cssContent = ${JSON.stringify(cssTemplate)};
+const jsContent = ${JSON.stringify(jsTemplate)};
 
 const manifest = {
     "name": "My DragDrop Extension",

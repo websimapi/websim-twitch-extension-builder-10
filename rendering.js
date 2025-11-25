@@ -33,7 +33,7 @@ export function renderElementContent(wrapper, type, data) {
         case 'container':
             content = document.createElement('div');
             content.className = 'teb-container';
-            Object.assign(content.style, { backgroundColor: data.bgColor, padding: data.padding, borderRadius: data.radius, color: '#aaa', fontSize: '0.8rem', textAlign: 'center', border: '1px dashed #444' });
+            Object.assign(content.style, { backgroundColor: data.bgColor, padding: data.padding, borderRadius: data.radius, color: '#adadb8', fontSize: '13px', textAlign: 'center', border: '1px dashed #444' });
             content.textContent = 'Container Area';
             break;
         case 'image':
