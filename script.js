@@ -3,6 +3,7 @@ import { polyfill } from 'mobile-drag-drop';
 import { setupExport } from './exportExtension.js';
 import { setupServerDownload } from './serverDownload.js';
 import { setupLiveSync } from './liveSync.js';
+import { getDefaultData, renderElementContent } from './elementDefinitions.js';
 
 // Initialize drag and drop polyfill for mobile
 polyfill({
@@ -760,17 +761,6 @@ function addDragAndResizeHandlers(wrapper) {
             document.addEventListener('touchend', endInteraction);
         }, { passive: true });
     });
-}
-
-function getDefaultData(type) {
-    switch(type) {
-        case 'text': return { text: 'Hello Twitch!', color: '#efeff1', size: '16px', align: 'left' };
-        case 'button': return { label: 'Click Me', bgColor: '#9146FF', color: '#ffffff' };
-        case 'container': return { bgColor: '#26262c', padding: '10px', radius: '4px' };
-        case 'image': return { src: 'https://placehold.co/300x150/9146FF/white?text=Image', alt: 'Placeholder' };
-        case 'divider': return { color: '#3a3a3a', margin: '10px' };
-        default: return {};
-    }
 }
 
 export function renderElementContent(wrapper, type, data) {
